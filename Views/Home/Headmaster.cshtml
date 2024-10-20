@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Headmaster";
+}
+
+<h2>Headmaster</h2>
+<div id="notification-counter">0</div>
+
+<!-- Bell icon -->
+<div class="bell-icon hidden" style="background-color:red">
+    <i class="fa fa-bell" style="background-color:yellow"></i>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script type="text/javascript">
+
+    var notificationHub = $.connection.notificationHub;
+
+    // Create a function that the hub can call toupdate the notification counter and display a bell icon
+
+    notificationHub.client.updateNotificationCounter = function (count) {
+        console.log(document.getElementById("notification-counter").innerHTML);
+
+        var i = parseInt(document.getElementById('notification-counter').innerHTML)
+        console.log(i);
+        var newone = i + count;
+        // Update the notification counter
+        console.log(newone);
+        document.getElementById('notification-counter').innerHTML=newone;
+        // Show the bell icon
+        $('.bell-icon').removeClass('hidden');
+    };
+
+    // Start the connection
+    $.connection.hub.start().done(function () {
+        console.log('SignalR connected');
+    });
+</script>
+

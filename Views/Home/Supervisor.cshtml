@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>supervisor</h2>
+
+<input type="button" onclick="k()" />
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script type="text/javascript">
+    var notificationHub = $.connection.notificationHub;
+
+
+
+    // Start the connection
+    $.connection.hub.start().done(function () {
+        console.log('SignalR connected');
+    });
+
+    /*});*/
+    function k() {
+        notificationHub.server.sendMessage(1);
+        
+
+    }
+</script>
+
+
